@@ -7,7 +7,7 @@ let requestsReceived = 0;
 const server = http.createServer((req, res) => {
   const parseUrl = url.parse(req.url, true);
 
-  res.setHeader('Access-Control-Allow-Origin', 'https://dictionary-frontend-nine.vercel.app'); // Allow only your frontend
+  res.setHeader('Access-Control-Allow-Origin', 'https://lab4-frontend.vercel.app'); // Allow only your frontend
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
