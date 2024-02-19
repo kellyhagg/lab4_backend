@@ -7,12 +7,13 @@ let requestsReceived = 0;
 const server = http.createServer((req, res) => {
   const parseUrl = url.parse(req.url, true);
 
-  res.setHeader('Access-Control-Allow-Origin', 'https://lab4-frontend.vercel.app'); // Allow only your frontend
+  // Used GPT to get the exact Header name and value parameters to pass in to bypass CORS
+  res.setHeader('Access-Control-Allow-Origin', 'https://dictionary-frontend-nine.vercel.app');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
-    res.writeHead(200); // Indicate that the CORS policy allows this request
+    res.writeHead(200);
     res.end();
     return;
   }
@@ -20,7 +21,10 @@ const server = http.createServer((req, res) => {
   if (parseUrl.pathname === '/api/definitions' && req.method === 'POST') {
     let body = '';
 
-    req.on('data', (chunk) => { if (chunk != null) body += chunk });
+    // Used GPT on the next three lines
+    req.on('data', (chunk) => {
+      if (chunk != null) body += chunk
+    });
 
     req.on('end', () => {
       const data = JSON.parse(body);
@@ -34,6 +38,7 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify({ message: `Warning! ${word} already exists` }));
       } else {
         dictionary.push({ word, definition });
+        // Used GPT to get the exact Header name and values
         res.writeHead(200, {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
@@ -49,6 +54,7 @@ const server = http.createServer((req, res) => {
 
     if (entry) {
       res.writeHead(200, {
+        // Used GPT to get the exact Header name and values
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST',
@@ -56,6 +62,7 @@ const server = http.createServer((req, res) => {
       res.end(JSON.stringify({ found: true, definition: entry.definition, numberOfRequest: requestsReceived }));
     } else {
       res.writeHead(400, {
+        // Used GPT to get the exact Header name and values
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST',
